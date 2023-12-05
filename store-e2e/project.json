@@ -1,0 +1,33 @@
+{
+  "name": "store-e2e",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "store-e2e/src",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "store-e2e/cypress.config.ts",
+        "testingType": "e2e",
+        "devServerTarget": "store:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "store:serve:production"
+        },
+        "ci": {
+          "devServerTarget": "store:serve-static"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["store-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["store"]
+}
